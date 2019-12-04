@@ -59,6 +59,9 @@ spec:
         - name: grafana-persistent-storage
           mountPath: /var/lib/grafana
           subPath: grafana
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
       volumes:
       - name: grafana-persistent-storage
         persistentVolumeClaim:
@@ -255,9 +258,13 @@ spec:
           limits:
             cpu: 1000m
             memory: 4000Mi
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
       volumes:
       - name: data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: monitor-prometheus-pvc
       - name: config-volume
         configMap:
           name: monitor-prometheus-config
@@ -283,4 +290,3 @@ spec:
   selector:
     k8s.eip.work/layer: monitor
     k8s.eip.work/name: monitor-prometheus
-
