@@ -24,7 +24,7 @@ async function openPinpointMonitor(context) {
       }
     }
     if (application === undefined) {
-      context.$message.error('Pinpoint 未采集到对应的数据')
+      context.$message.error('Pinpoint 未采集到对应的数据，在被监控的服务发生调用之后才有数据推送到 pinpoint')
       failed = true
       this.loading = false
     }
